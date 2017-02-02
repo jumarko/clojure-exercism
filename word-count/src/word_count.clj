@@ -2,8 +2,8 @@
   (:require [clojure.string :as str]))
 
 (defn word-count [phrase]
-  (-> phrase
+  (->> phrase
     str/lower-case
-    (str/split #"[^A-Za-z0-9]+")
+    (re-seq #"\w+")
     frequencies))
 
