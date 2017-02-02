@@ -8,7 +8,7 @@
     \C \G
     \T \A
     \A \U
-    (throw (AssertionError. "Invalid nucleotid"))))
+    (assert false "Invalid nucleotid")))
 
 (defn to-rna [dna-strand]
   (apply str (map to-rna-nucleotid dna-strand)))
