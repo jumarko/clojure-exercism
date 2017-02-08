@@ -3,12 +3,9 @@
 
 (defn verse [number]
   (cond
-    (> number 2) (str 
-                   number " bottles of beer on the wall, " number " bottles of beer.\n"
-                   "Take one down and pass it around, " (dec  number) " bottles of beer on the wall.\n")
-    (= number 2) (str 
-                   number " bottles of beer on the wall, " number " bottles of beer.\n"
-                   "Take one down and pass it around, " (dec  number) " bottle of beer on the wall.\n")
+    (>= number 2) (str 
+                    number " bottles of beer on the wall, " number " bottles of beer.\n"
+                    "Take one down and pass it around, " (dec  number) (if (> number 2) " bottles" " bottle") " of beer on the wall.\n")
     (= number 1) (str
                    "1 bottle of beer on the wall, 1 bottle of beer.\n"
                    "Take it down and pass it around, no more bottles of beer on the wall.\n")
