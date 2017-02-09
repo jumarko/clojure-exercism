@@ -8,8 +8,4 @@
   (clojure.core/count (filter #(= % nucleotide) dna-string) ))
 
 (defn nucleotide-counts [dna-string]
-  (->>
-    (group-by valid-nucleotides dna-string)
-    (map (fn [[k v]] [k (clojure.core/count v)]))
-    (into {\A 0 \T 0 \C 0 \G 0})))
-
+  (merge {\A 0 \T 0 \C 0 \G 0} (frequencies dna-string)))
