@@ -6,7 +6,7 @@
   [dna-1 dna-2]
   (when (= (count dna-1) (count dna-2))
     (->>
-     (map vector dna-1 dna-2)
-     (filter (fn [[x1 x2]] (not= x1 x2)))
+     (map = dna-1 dna-2)
+     (filter not)
      count)))
 
