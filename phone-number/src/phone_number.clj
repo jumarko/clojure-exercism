@@ -7,14 +7,14 @@
   [phone-num]
   (let [digits-only (apply str (filter #(Character/isDigit %) phone-num))
         digits-count (count digits-only)]
-    (condp = digits-count
+    (cond
       (= digits-count 10) digits-only
 
       (and (= digits-count 11)
            (= \1 (first digits-only)))
       (.substring digits-only 1)
 
-      "0000000000")))
+      :else "0000000000")))
 
 (defn area-code
   "Extracts area code from phone number"
@@ -25,4 +25,8 @@
 (defn pretty-print
   "Formats phone number"
   [phone-num]
-  )
+  (when-let [phone (number phone-num)]
+    (format "(%s) %s-%s"
+            (area-code phone)
+            (.substring phone 3 6)
+            (.substring phone 6 (count phone)))))
