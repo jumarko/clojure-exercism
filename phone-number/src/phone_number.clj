@@ -12,7 +12,7 @@
 
       (and (= digits-count 11)
            (= \1 (first digits-only)))
-      (.substring digits-only 1)
+      (subs digits-only 1)
 
       :else "0000000000")))
 
@@ -20,7 +20,7 @@
   "Extracts area code from phone number"
   [phone-num]
   (when-let [num (number phone-num)]
-    (.substring num 0 3)))
+    (subs num 0 3)))
 
 (defn pretty-print
   "Formats phone number"
@@ -28,5 +28,5 @@
   (when-let [phone (number phone-num)]
     (format "(%s) %s-%s"
             (area-code phone)
-            (.substring phone 3 6)
-            (.substring phone 6 (count phone)))))
+            (subs phone 3 6)
+            (subs phone 6))))
