@@ -8,11 +8,10 @@
 (defn clock
   "Clock that process time without date"
   [hour minute]
-  (let [hours (mod hour 24)
-        minutes->hours (quot minute 60)
+  (let [minutes->hours (quot minute 60)
+        hours (mod (+ hour minutes->hours) 24)
         minutes (mod minute 60)]
-    [(+ hours minutes->hours)
-     minutes]))
+    [hours minutes]))
 
 (defn clock->string
   "convers clock to human-redable string representation "
