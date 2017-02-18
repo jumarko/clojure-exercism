@@ -8,7 +8,7 @@
 (defn clock
   "Clock that process time without date"
   [hour minute]
-  [hour minute])
+  [(mod hour 24) (mod minute 60)])
 
 (defn clock->string
   "convers clock to human-redable string representation "
