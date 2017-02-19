@@ -1,21 +1,10 @@
 (ns clock)
 
-(defn- minutes->hours
-  "Converts minutes that 'roll over' to hours.
-   E.g. 81 minutes should be converted to 1 hour.
-   -124 minutes should be converted to -2 hours."
-  [minutes]
-  (let [div (quot minutes 60)]
-    (if (neg? minutes)
-      ;; e.g. -40 minutes means that we need to substract one hour
-      (dec div)
-      ;; e.g. 59 minutes that we still return 0 hour 
-      div)))
-
 (defn- calc-hours
   "Calculate the final hours from given hours and minutes which both can be negative."
   [hours minutes]
-  (mod (+ hours (minutes->hours minutes)) 24))
+  (mod (+ hours (Math/floorDiv minutes 60)) 24))
+
 
 (defn- calc-minutes
   [minutes]
