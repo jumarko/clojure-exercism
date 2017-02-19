@@ -26,4 +26,5 @@
 
 (defn add-time
   "Adds or substracts (if negative) hours and minutes from given clock."
-  [clock minute])
+  [[clock-hour clock-minute] minute]
+  (clock clock-hour (+ clock-minute minute)))
