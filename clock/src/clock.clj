@@ -7,16 +7,25 @@
   [minutes]
   (let [div (quot minutes 60)]
     (if (neg? minutes)
+      ;; e.g. -40 minutes means that we need to substract one hour
       (dec div)
+      ;; e.g. 59 minutes that we still return 0 hour 
       div)))
+
+(defn- calc-hours
+  "Calculate the final hours from given hours and minutes which both can be negative."
+  [hours minutes]
+  (mod (+ hours (minutes->hours minutes)) 24))
+
+(defn- calc-minutes
+  [minutes]
+  (mod minutes 60))
 
 (defn clock
   "Clock that process time without date"
-  [hour minute]
-  (let [minutes-hours (minutes->hours minute)
-        hours (mod (+ hour minutes-hours) 24)
-        minutes (mod minute 60)]
-    [hours minutes]))
+  [hours minutes]
+  [(calc-hours hours minutes)
+   (calc-minutes minutes)])
 
 (defn clock->string
   "convers clock to human-redable string representation "
