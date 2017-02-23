@@ -13,7 +13,7 @@
 
 (defn reset-name
   [robot]
-  (reset! robot {::name (random-name)}))
+  (swap! robot assoc ::name (random-name)))
 
 (defn robot-name
   [robot]
