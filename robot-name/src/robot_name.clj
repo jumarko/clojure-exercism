@@ -4,7 +4,7 @@
   (rand-nth "ABCDEFGHIJKLMNOPQRSTUVWXYZ"))
 
 (defn- random-digit []
-  (rand-nth (range 10)))
+  (rand-int 10))
 
 (defn- random-name
   []
@@ -29,3 +29,4 @@
 (reset-name robot1)
 (robot-name robot1)
 
+(random-digit)
