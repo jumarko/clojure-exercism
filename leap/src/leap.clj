@@ -9,5 +9,4 @@
   (and
    (= 0 (mod year 4))
    (or (not= 0 (mod year 100))
-       (and (= 0 (mod year 100))
-            (= 0 (mod year 400))))))
+       (= 0 (mod year 400)))))
