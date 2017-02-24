@@ -1,0 +1,1 @@
+jumar@ip-94-113-21-72.net.upcbroadband.cz.411
