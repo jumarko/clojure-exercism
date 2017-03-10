@@ -11,8 +11,8 @@
                            (for [x (range 1 n)
                                  :when (zero? (mod n x))]
                              x))]
-    (cond
-      (= n aliquot-sum) :perfect
-      (< n aliquot-sum) :abundant
-      (> n aliquot-sum) :deficient)))
+    (condp #(%1 aliquot-sum %2) n
+      = :perfect
+      > :abundant
+      < :deficient)))
 
