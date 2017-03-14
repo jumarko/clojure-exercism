@@ -54,8 +54,8 @@
           ;; that we are able to identify proper day of week in month later in `day-of-week-in-month` function.
           (.set Calendar/DAY_OF_WEEK_IN_MONTH 1))]
     (.set calendar Calendar/DAY_OF_WEEK_IN_MONTH (day-of-week-in-month day-of-week-in-month-kw calendar))
-    [(.get calendar Calendar/YEAR)
-     (inc (.get calendar Calendar/MONTH))
+    [year
+     month
      (.get calendar Calendar/DAY_OF_MONTH)]))
 
 (meetup/meetup 5 2013 :sunday :teenth)
