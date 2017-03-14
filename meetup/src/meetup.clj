@@ -16,13 +16,14 @@
 
 (defn- day-of-week-in-month
   "transforms keywordized day of week in month like :first, :second, :third, :fourth, :last, or :teenth
-  to the number like 1, 2, 3, 4, 4, or 2."
-  [week-in-month]
+  to the actual number representing day of week in month as defined by `java.util.Calendar/DAY_OF_WEEK_IN_MONTH`."
+  [week-in-month calendar]
   (case week-in-month
     :first 1
     :second 2
     :third 3
     :fourth 4
+    :last (.getActualMaximum calendar Calendar/DAY_OF_WEEK_IN_MONTH)
     ;; TODO :last and :teenth
 ))
 
@@ -39,9 +40,8 @@
           ;; notice that java.util.Calendar numbers months from 0 to 11
           (.set Calendar/MONTH (dec month))
           (.set Calendar/YEAR year)
-          (.set Calendar/DAY_OF_WEEK (day-of-week day-of-week-kw))
-          (.set Calendar/DAY_OF_WEEK_IN_MONTH (day-of-week-in-month day-of-week-in-month-kw)))]
-    (println calendar)
+          (.set Calendar/DAY_OF_WEEK (day-of-week day-of-week-kw)))]
+    (.set calendar Calendar/DAY_OF_WEEK_IN_MONTH (day-of-week-in-month day-of-week-in-month-kw calendar))
     [(.get calendar Calendar/YEAR)
      (inc (.get calendar Calendar/MONTH))
      (.get calendar Calendar/DAY_OF_MONTH)]))
