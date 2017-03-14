@@ -14,6 +14,15 @@
     :saturday Calendar/SATURDAY
     :sunday Calendar/SUNDAY))
 
+(defn- teenth-day-of-week-in-month
+  [day-of-month]
+  ;; max boundary for day of month is 19.
+  ;; That means it will be 3rd week if the first day of month for the first week is <= 5
+  ;; otherwise just second week.
+  (if (#{1 2 3 4 5} day-of-month)
+    3
+    2))
+
 (defn- day-of-week-in-month
   "transforms keywordized day of week in month like :first, :second, :third, :fourth, :last, or :teenth
   to the actual number representing day of week in month as defined by `java.util.Calendar/DAY_OF_WEEK_IN_MONTH`."
@@ -24,7 +33,7 @@
     :third 3
     :fourth 4
     :last (.getActualMaximum calendar Calendar/DAY_OF_WEEK_IN_MONTH)
-    ;; TODO :last and :teenth
+    :teenth (teenth-day-of-week-in-month (.get calendar Calendar/DAY_OF_MONTH))
 ))
 
 (defn meetup
@@ -40,10 +49,13 @@
           ;; notice that java.util.Calendar numbers months from 0 to 11
           (.set Calendar/MONTH (dec month))
           (.set Calendar/YEAR year)
-          (.set Calendar/DAY_OF_WEEK (day-of-week day-of-week-kw)))]
+          (.set Calendar/DAY_OF_WEEK (day-of-week day-of-week-kw))
+          ;; temporarily set day of week in month to the first one to make sure
+          ;; that we are able to identify proper day of week in month later in `day-of-week-in-month` function.
+          (.set Calendar/DAY_OF_WEEK_IN_MONTH 1))]
     (.set calendar Calendar/DAY_OF_WEEK_IN_MONTH (day-of-week-in-month day-of-week-in-month-kw calendar))
     [(.get calendar Calendar/YEAR)
      (inc (.get calendar Calendar/MONTH))
      (.get calendar Calendar/DAY_OF_MONTH)]))
 
-(meetup 3 2013 :monday :first)
+(meetup/meetup 5 2013 :sunday :teenth)
