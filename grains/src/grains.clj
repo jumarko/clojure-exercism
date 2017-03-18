@@ -1,7 +1,7 @@
 (ns grains)
 
 (def ^:private lazy-squares
-  (iterate #(bigint (* 2 %)) 1))
+  (iterate #(*' 2 %) 1))
 
 (defn square
   "Compute number of grains on given square of chessboard.
