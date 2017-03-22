@@ -5,14 +5,11 @@
   The inputs are the lengths of triangle's sides."
   [a b c]
   ;; sort the sides by their lengths to make the triangle inequality check simpler
-  (let [sorted (sort [a b c])
-        as (first sorted)
-        bs (second sorted)
-        cs (last sorted)]
+  (let [[a b c] (sort [a b c])]
     (cond
       ;; triangle inequality
-      (<= (+ as bs) cs) :illogical
-      (= as bs cs) :equilateral
-      (or (= as bs) (= bs cs)) :isosceles
+      (<= (+ a b) c) :illogical
+      (= a b c) :equilateral
+      (or (= a b) (= b c)) :isosceles
       :else :scalene)))
 
