@@ -1,10 +1,5 @@
 (ns binary)
 
-(defn- power-of-two
-  "Given exponent computes power of two: 2^exp"
-  [exp]
-  (nth (iterate (partial * 2) 1) exp))
-
 (defn- map-binary-string-to-powers-of-two
   ""
   [binary-str]
@@ -13,7 +8,7 @@
      (fn [idx binary-digit]
        (if (= \0 binary-digit)
          0
-         (power-of-two (- order idx))))
+         (bit-shift-left 1 (- order idx))))
      binary-str)))
 
 (defn to-decimal
