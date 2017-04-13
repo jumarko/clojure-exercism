@@ -5,19 +5,22 @@
     (loop [cur-n n
            potential-factor 2
            prime-factors []]
-      (if (> potential-factor max-factor)
+        (cond
+          (= cur-n 1) prime-factors
 
-        (if (> cur-n max-factor)
-          (conj prime-factors cur-n)
-          prime-factors)
+          ;; shortcut to avoid looping through all factors up to n if n is a prime number
+          (> potential-factor max-factor) (conj prime-factors cur-n)
 
-        (if (zero? (rem cur-n potential-factor))
+          (zero? (rem cur-n potential-factor))
           (recur (quot cur-n potential-factor)
                  potential-factor
                  (conj prime-factors potential-factor))
+          
+          :else
           (recur cur-n
                  (inc potential-factor)
-                 prime-factors))))))
+                 prime-factors)
+          ))))
 
 (of 1)
 (of 5)
