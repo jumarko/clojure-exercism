@@ -1,6 +1,6 @@
 (ns raindrops)
 
-(defn divisible
+(defn divisible?
  "Binary predicate which returns true if n is divisible by d."
  [n d]
  (zero? (mod n d)))
@@ -15,9 +15,9 @@
   is converted to a string representation without modification."
   [n]
   (cond-> nil
-    (divisible n 3) (str "Pling")
-    (divisible n 5) (str "Plang")
-    (divisible n 7) (str "Plong")
+    (divisible? n 3) (str "Pling")
+    (divisible? n 5) (str "Plang")
+    (divisible? n 7) (str "Plong")
     :else (#(if % % (str n)))))
 
 (convert 4)
