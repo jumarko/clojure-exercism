@@ -18,7 +18,7 @@
     (divisible? n 3) (str "Pling")
     (divisible? n 5) (str "Plang")
     (divisible? n 7) (str "Plong")
-    :else (#(if % % (str n)))))
+    :else (or (str n))))
 
 (convert 4)
 (convert 10)
