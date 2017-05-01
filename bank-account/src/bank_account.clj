@@ -3,10 +3,14 @@
 (defn- opened? [account]
   (= :open (:status @account)))
 
+(defmacro ^:private with-opened [account & body]
+  `(when (opened? ~account)
+     ~@body))
+
 (defn open-account
   "Opens given account. This is the first operation starting the account life."
   []
-  (atom 
+  (atom
    {:balance 0
     :status :open}))
 
@@ -18,19 +22,15 @@
     (swap! account assoc :status :close)
     account))
 
-(opened? (close-account (open-account)))
-(opened? (open-account))
-
-
 (defn get-balance
   "Returns current balance of the account."
   [account]
-  (when (opened? account)
+  (with-opened account
     (:balance @account)))
 
 (defn update-balance
   "Updates balance of given account adding the amount."
   [account amount]
-  (when (opened? account)
+  (with-opened account
     (swap! account update :balance (partial + amount))))
 
