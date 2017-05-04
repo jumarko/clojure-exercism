@@ -11,12 +11,15 @@
 
 (defn square-size
   "Returns number of columns, i.e. the number of chars in one block."
-  [s])
+  [s]
+  (int (Math/ceil (Math/sqrt (count s)))))
 
 (defn plaintext-segments
   "Break input text into segments of size given by `square-size`"
- [s])
-(plaintext-segments "never do this")
+  [s]
+  (let [norm-s (normalize-plaintext s)]
+    (mapv (partial apply str)
+          (partition-all (square-size norm-s) norm-s))))
 
 (defn ciphertext
   "Encodes given plaintext using crypto sqaure cipher."
