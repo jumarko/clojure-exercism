@@ -30,16 +30,10 @@
 
 (defn valid? [number-str]
   (let [without-spaces (clojure.string/replace number-str #" +" "")]
-    (cond
-      (> 2 (count without-spaces))
-      false
-
-      (some #(not (Character/isDigit %)) without-spaces)
-      false
-
-      :else (zero?
-             (rem (luhn-sum without-spaces) 10)))))
-
+    (and
+     (> (count without-spaces) 1)
+     (every? #(Character/isDigit %) without-spaces)
+     (zero? (rem (luhn-sum without-spaces) 10)))))
 
 (valid? "055 444 285")
 
