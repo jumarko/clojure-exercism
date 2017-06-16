@@ -4,13 +4,23 @@
   (and (> base digit)
        (>= digit 0)))
 
-(defn- convert-to-number [base digits-seq]
+(defn- to-number [base digits-seq]
   (reduce (fn [acc digit]
             (if (valid-digit? digit base)
               (+ digit (* base acc))
               (reduced nil)))
           0
           digits-seq))
+
+(defn- from-number [n output-base]
+  (loop [n n
+         b output-base
+         output-digits '()]
+    (let [div (quot n b)
+          modus (mod n b)]
+      (if (pos? div)
+        (recur div b (conj output-digits modus))
+        (conj output-digits modus)))))
 
 (defn convert
   "Converts number represented by sequence of digits (second arg)
@@ -19,13 +29,6 @@
   (when (and (> base 1)
              (> output-base 1))
     (if (seq digits-seq)
-      (when-let [n (convert-to-number base digits-seq)]
-        (loop [n n
-               b output-base
-               output-digits '()]
-          (let [div (quot n b)
-                modus (mod n b)]
-            (if (pos? div)
-              (recur div b (conj output-digits modus))
-              (conj output-digits modus)))))
+      (when-let [n (to-number base digits-seq)]
+        (from-number n output-base))
       '())))
