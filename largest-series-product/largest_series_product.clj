@@ -17,13 +17,13 @@
   [span digits]
   (cond
     (not (every? valid-digits digits))
-    (throw (IllegalArgumentException. (str "Invalid digit(s): " digits)))
+    (throw (ex-info (str "Invalid digit(s): " digits)))
 
     (> span (count digits))
-    (throw (IllegalArgumentException. (format "span=%d is greater than digits count=%d" span (count digits))))
+    (throw (ex-info (format "span=%d is greater than digits count=%d" span (count digits))))
 
     (neg? span)
-    (throw (IllegalArgumentException. (str "Negative span: " span)))
+    (throw (ex-info (str "Negative span: " span)))
 
     (and (zero? span) (empty? digits))
     1
@@ -32,7 +32,4 @@
     (->> digits
          (partition span 1)
          (map digits-product)
-         sort
-         last)))
-
-(largest-product 0 "")
+         (apply max))))
