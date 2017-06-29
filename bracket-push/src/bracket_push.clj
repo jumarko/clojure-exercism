@@ -18,14 +18,18 @@
   [string-with-parens]
   (if (seq
        (reduce (fn [parens-stack char]
-                 (if (is-paren? char)
-                   (if (opening-parens char)
-                     (conj parens-stack char)
-                     (if-let [previous-paren (peek parens-stack)]
-                       (if-not (= previous-paren (parens char))
-                         (reduced [false])
-                         (pop parens-stack))
-                       (reduced [false])))
+                 (cond
+                   (and (is-paren? char) (opening-parens char))
+                   (conj parens-stack char)
+
+                   (and (is-paren? char)
+                        (= (peek parens-stack) (parens char)))
+                   (pop parens-stack)
+
+                   (is-paren? char)
+                   (reduced [false])
+
+                   :else
                    parens-stack))
                []
                string-with-parens))
@@ -34,4 +38,3 @@
     false
     true))
 
-(valid? "([])")
