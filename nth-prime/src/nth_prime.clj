@@ -1,7 +1,7 @@
 (ns nth-prime)
 
 (defn- prime? [n]
-  (every? #(not (zero? (mod n %)))
+  (every? #(not= 0 (mod n %))
           (range 2
                  ;; inc is used to handle n = 4
                  (min n (inc (Math/ceil (Math/sqrt n)))))))
@@ -17,5 +17,4 @@
     (throw (IllegalArgumentException. (str "expected positive number, but got:" n))))
   (nth (all-primes) (dec n)))
 
-(nth-prime 10000)
-(take 10 (all-primes))
+#_(nth-prime 10000)
