@@ -6,7 +6,10 @@
                             (inc (int \z)))
                      (map char)
                      (remove vowels)
+                     ;; treat y as consonant and handle special cases later
+                     (cons \y)
                      set))
+
 
 (defn- move-prefix-to-end
   "Cut prefix of given length from given string and append it to the
@@ -32,11 +35,9 @@
         (string/starts-with? s "xr"))
     (str s "ay")
 
-    (= \y (first s))
-    (move-prefix-to-end s 1 "ay")
-
     (and (consonants (first s))
-         (string/starts-with? (string/join (drop 1 s)) "qu"))
+         (string/starts-with? (string/join (drop 1 s))
+                              "qu"))
     (move-prefix-to-end s 3 "ay")
 
     (consonants (first s))
