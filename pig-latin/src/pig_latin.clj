@@ -30,15 +30,16 @@
     (string/starts-with? s "qu")
     (move-prefix-to-end s 2 "ay")
 
+    (and (consonants (first s))
+         (string/starts-with? (string/join (drop 1 s))
+                              "qu"))
+    (move-prefix-to-end s 3 "ay")
+
     (or (vowels (first s))
         (string/starts-with? s "yt")
         (string/starts-with? s "xr"))
     (str s "ay")
 
-    (and (consonants (first s))
-         (string/starts-with? (string/join (drop 1 s))
-                              "qu"))
-    (move-prefix-to-end s 3 "ay")
 
     (consonants (first s))
     (let [consonants-count (count (take-while consonants s))]
